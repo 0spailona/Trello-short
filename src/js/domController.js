@@ -48,12 +48,12 @@ export default class domController {
       const addCardFormEl = blockEl.querySelector('.addCardForm');
       const btnCancelEl = addCardFormEl.querySelector('.btnCansel');
 
-      addCardBtn.addEventListener('click', e => {
+      addCardBtn.addEventListener('click', () => {
         addCardFormEl.style.display = 'flex';
         addCardBtn.style.display = 'none';
       })
 
-      btnCancelEl.addEventListener('click', e => {
+      btnCancelEl.addEventListener('click', () => {
         addCardFormEl.style.display = 'none';
         addCardBtn.style.display = 'block';
       })
@@ -97,15 +97,15 @@ export default class domController {
     cardRemoveEl.textContent = '\u{2A09}';
     cardEl.appendChild(cardRemoveEl);
 
-    cardEl.addEventListener('mouseenter', e => {
+    cardEl.addEventListener('mouseenter', () => {
       cardRemoveEl.style.display = 'block'
     })
 
-    cardEl.addEventListener('mouseleave', e => {
+    cardEl.addEventListener('mouseleave', () => {
       cardRemoveEl.style.display = 'none'
     })
 
-    cardRemoveEl.addEventListener('click', e => {
+    cardRemoveEl.addEventListener('click', () => {
       cardWRP.remove()
       this.savingData()
     })
