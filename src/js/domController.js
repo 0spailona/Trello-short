@@ -21,10 +21,10 @@ export default class domController {
     for (let i = 0; i < this.saveData.length; i++) {
       const blockEl = document.querySelector(`.block[data-num='${i + 1}']`);
       const cardsContainer = blockEl.querySelector('.cardsContainer');
-        for (const value of this.saveData[i]) {
-          const card = this.getCardEl(value, blockEl);
-          cardsContainer.appendChild(card)
-        }
+      for (const value of this.saveData[i]) {
+        const card = this.getCardEl(value, blockEl);
+        cardsContainer.appendChild(card)
+      }
     }
   }
 
@@ -41,7 +41,7 @@ export default class domController {
   addListeners() {
     const blockEls = document.querySelectorAll('.block')
 
-    const cardsContainer = document.querySelectorAll('.cardsContainer');
+    const cardsContainers = document.querySelectorAll('.cardsContainer');
 
     for (const blockEl of blockEls) {
       const addCardBtn = blockEl.querySelector('.addCard');
@@ -73,7 +73,7 @@ export default class domController {
       })
     }
 
-    for (const container of cardsContainer) {
+    for (const container of cardsContainers) {
       container.addEventListener('dragover', e => onBlockDragOver(e, container));
       container.addEventListener('drop', e => onBlockDrop(e, container));
     }
@@ -106,7 +106,22 @@ export default class domController {
     })
 
     cardRemoveEl.addEventListener('click', () => {
-      cardWRP.remove()
+      cardWRP.remove();
+      cardWRP.removeEventListener('dragover', e => onDragEnterElem(e, cardWRP));
+      cardWRP.removeEventListener('dragleave', e => onDragLeaveElem(e, cardWRP));
+      cardEl.removeEventListener('dragstart', e => onDragStart(e, cardEl))
+      cardEl.removeEventListener('dragend', e => {
+        onDragEnd(e, cardEl);
+        this.savingData();
+      })
+      cardEl.removeEventListener('mouseenter', () => {
+        cardRemoveEl.style.display = 'block'
+      })
+
+      cardEl.removeEventListener('mouseleave', () => {
+        cardRemoveEl.style.display = 'none'
+      })
+
       this.savingData()
     })
 
