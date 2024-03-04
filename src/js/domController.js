@@ -1,4 +1,4 @@
-import {onBlockDragOver, onBlockDrop, onDragEnd, onDragEnterElem, onDragLeaveElem, onDragStart} from "./dragging";
+import {onBlockDragOver, onBlockDrop, onDragEnd, onDragEnterElem, onDragLeaveElem, onDragStart, onDragLeaveBlock} from "./dragging";
 
 export function by(keyFn) {
   return (x, y) => {
@@ -41,8 +41,6 @@ export default class domController {
   addListeners() {
     const blockEls = document.querySelectorAll('.block')
 
-    const cardsContainers = document.querySelectorAll('.cardsContainer');
-
     for (const blockEl of blockEls) {
       const addCardBtn = blockEl.querySelector('.addCard');
       const addCardFormEl = blockEl.querySelector('.addCardForm');
@@ -71,11 +69,11 @@ export default class domController {
         addCardFormEl.style.display = 'none';
         addCardBtn.style.display = 'block';
       })
-    }
 
-    for (const container of cardsContainers) {
-      container.addEventListener('dragover', e => onBlockDragOver(e, container));
-      container.addEventListener('drop', e => onBlockDrop(e, container));
+      const container = blockEl.querySelector('.cardsContainer');
+      blockEl.addEventListener('dragover', e => onBlockDragOver(e, container));
+      blockEl.addEventListener('drop', e => onBlockDrop(e, container));
+      blockEl.addEventListener('dragleave', e => onDragLeaveBlock(e, container));
     }
   }
 

@@ -45,7 +45,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  //gap: 10px;
   min-height: 30px;
 }
 .customBtn{
@@ -86,6 +86,10 @@
   padding: 0 10px;
 }
 
+.cardWRP{
+  margin-bottom: 10px;
+}
+
 .card {
   display: flex;
   gap: 10px;
@@ -110,4 +114,6 @@
 .cardWRP.dragging {
   opacity: 0.001;
   cursor: grabbing;
+  height: 0;
+  margin-bottom: 0;
 }
